@@ -17,6 +17,7 @@ defmodule Meat.Restaurants.Restaurant do
   def changeset(restaurant, attrs \\ %{}) do
     restaurant
     |> cast(attrs, [:image, :name, :description])
+    |> cast_attachments(attrs, [:image])
     |> validate_required([:image, :name, :description], message: "You have to fill this field")
   end
 end

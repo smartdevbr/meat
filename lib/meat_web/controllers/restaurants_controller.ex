@@ -10,6 +10,7 @@ defmodule MeatWeb.RestaurantsController do
     do: render(conn, "new.html", changeset: Restaurants.change_restaurant(%Restaurant{}))
 
   def create(conn, %{"restaurant" => restaurant_param}) do
+    IO.inspect restaurant_param
     case Restaurants.create_restaurant(restaurant_param) do
       {:ok, restaurant} ->
         conn
