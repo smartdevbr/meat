@@ -1,0 +1,45 @@
+<%= form_for @changeset, @action, [class: "w-full max-w-md", multipart: true], fn f ->%>
+  <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label class="block uppercase tracking-wide text-orange-darker text-xs font-bold mb-2" for="grid-first-name">
+        Restaurant's Name
+      </label>
+      <%= text_input f, :name,  
+      class: "appearance-none block w-full bg-grey-lighter text-grey-darker border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange", 
+      id: "restaurant-name", placeholder: "ex: Burguer House" %>
+      <p class="text-red text-xs italic"><%= error_tag f, :name %></p>
+    </div>
+  </div>
+
+    <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label class="block uppercase tracking-wide text-orange-darker text-xs font-bold mb-2" for="grid-first-name">
+        Restaurant's Description
+      </label>
+      <%= textarea f, :description,  class: "appearance-none block w-full bg-grey-lighter text-grey-darker border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange", 
+      id: "restaurant-description", placeholder: "ex: is a amazing place to eat burguers" %>
+      <p class="text-red text-xs italic"><%= error_tag f, :description %></p>
+    </div>
+  </div>
+
+    <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="w-full px-3">
+      <label class="block uppercase tracking-wide text-orange-darker text-xs font-bold mb-2" for="grid-first-name">
+        Restaurant's Image
+      </label>
+      <%= file_input  f, :image, id: "restaurant-image" , accept: "image/*",
+        class: "appearance-none block w-full bg-grey-lighter text-grey-darker border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange"  %>
+       <p class="text-red text-xs italic"><%= error_tag f, :image %></p>
+    </div>
+  </div>
+  
+    <div class="flex flex-wrap -mx-3 mb-6">
+    <div class="md:w-1/3"></div>
+    <div class="md:w-1/3">
+      <%= submit "Insert", class: "shadow bg-orange hover:bg-orange-light focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
+      %>
+
+    </div>
+  </div>
+
+<% end %>
