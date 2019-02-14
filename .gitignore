@@ -25,6 +25,8 @@ meat-*.tar
 # If NPM crashes, it generates a log, let's ignore it too.
 npm-debug.log
 
+/uploads/*
+
 # The directory NPM downloads your dependencies sources to.
 /assets/node_modules/
 
