@@ -16,7 +16,7 @@ defmodule MeatWeb.Router do
   scope "/", MeatWeb do
     pipe_through :browser
 
-    resources "/", RestaurantsController
+    resources "/", RestaurantController
     # get "/", PageController, :index
   end
 

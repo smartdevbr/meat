@@ -20,7 +20,7 @@ defmodule Meat.MixProject do
   def application do
     [
       mod: {Meat.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :arc_ecto]
     ]
   end
 

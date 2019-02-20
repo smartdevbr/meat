@@ -7,7 +7,7 @@ defmodule Meat.Restaurants.Restaurant do
   @derive {Phoenix.Param, key: :id}
   schema "restaurants" do
     field :description, :string
-    field :image, Meat.RestaurantUploader.Type
+    field :image, Meat.Restaurants.Image.Type
     field :name, :string
 
     timestamps()

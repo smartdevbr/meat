@@ -1,4 +1,4 @@
-defmodule Meat.RestaurantUploader do
+defmodule Meat.Restaurants.Image do
   use Arc.Definition
   use Arc.Ecto.Definition
 
@@ -6,7 +6,23 @@ defmodule Meat.RestaurantUploader do
 
   @versions [:original]
 
-  def __storage, do: Arc.Storage.Local
+  def storage_dir(_version, {_, _}) do
+    if Mix.env() == :test do
+      "uploads/test"
+    else
+      "uploads"
+    end
+  end
+
+  # def __storage, do: Arc.Storage.Local
+
+  # def storage_dir(_version, {_, _}) do
+  #   if Mix.env == :test do
+  #     "uploads/test"
+  #   else
+  #     "uploads"
+  #   end
+  # end
 
   # To add a thumbnail version:
   # @versions [:original, :thumb]

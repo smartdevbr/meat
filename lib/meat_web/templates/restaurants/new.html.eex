@@ -1,2 +1,0 @@
-<%= render "form.html", Map.put(assigns, :action, Routes.restaurants_path(@conn, :create) ) %>
-<span><%= link "back", to: Routes.restaurants_path(@conn, :index) %></span>

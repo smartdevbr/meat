@@ -1,4 +1,4 @@
-defmodule MeatWeb.RestaurantsController do
+defmodule MeatWeb.RestaurantController do
   use MeatWeb, :controller
 
   alias Meat.Restaurants
@@ -10,12 +10,11 @@ defmodule MeatWeb.RestaurantsController do
     do: render(conn, "new.html", changeset: Restaurants.change_restaurant(%Restaurant{}))
 
   def create(conn, %{"restaurant" => restaurant_param}) do
-    IO.inspect restaurant_param
     case Restaurants.create_restaurant(restaurant_param) do
       {:ok, restaurant} ->
         conn
         |> put_flash(:info, "Restaurant has created")
-        |> redirect(to: Routes.restaurants_path(conn, :show, restaurant))
+        |> redirect(to: Routes.restaurant_path(conn, :show, restaurant))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -38,7 +37,7 @@ defmodule MeatWeb.RestaurantsController do
       {:ok, restaurant} ->
         conn
         |> put_flash(:info, "Restaurant has updated successfully!")
-        |> redirect(to: Routes.retaurants_path(conn, :show, restaurant))
+        |> redirect(to: Routes.restaurant_path(conn, :show, restaurant))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", restaurant: restaurant, changeset: changeset)
@@ -51,6 +50,6 @@ defmodule MeatWeb.RestaurantsController do
 
     conn
     |> put_flash(:info, "Restaurant has deleted successfully!")
-    |> redirect(to: Routes.restaurants_path(conn, :index))
+    |> redirect(to: Routes.restaurant_path(conn, :index))
   end
 end
