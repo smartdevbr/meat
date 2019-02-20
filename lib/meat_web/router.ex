@@ -16,7 +16,8 @@ defmodule MeatWeb.Router do
   scope "/", MeatWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    resources "/", RestaurantController
+    # get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.

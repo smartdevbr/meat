@@ -28,6 +28,10 @@ defmodule Meat.DataCase do
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Meat.Repo)
 
+    on_exit(fn ->
+      Meat.File.remove_test_files()
+    end)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Meat.Repo, {:shared, self()})
     end

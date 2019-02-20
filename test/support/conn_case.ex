@@ -33,6 +33,10 @@ defmodule MeatWeb.ConnCase do
       Ecto.Adapters.SQL.Sandbox.mode(Meat.Repo, {:shared, self()})
     end
 
+    on_exit(fn ->
+      Meat.File.remove_test_files()
+    end)
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

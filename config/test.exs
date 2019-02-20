@@ -8,11 +8,12 @@ config :meat, MeatWeb.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+config :arc, storage: Arc.Storage.Local
 
 # Configure your database
 config :meat, Meat.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "1234",
   database: "meat_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
