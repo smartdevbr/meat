@@ -80,5 +80,4 @@ config :arc,
     region: {:system, "S3_REGION"} || "us-east-1"
   ]
 
-  
 import_config "prod.secret.exs"

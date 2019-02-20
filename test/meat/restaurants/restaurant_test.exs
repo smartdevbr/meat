@@ -38,9 +38,9 @@ defmodule Meat.RestaurantsTest do
     test "list_restaurants/0 returns all restaurants" do
       restaurant = restaurant_fixture()
       list = Restaurants.list_restaurants()
-      [restaurant_return | _tail ] = list
+      [restaurant_return | _tail] = list
       assert Enum.count(list) == 1
-      assert restaurant_return.id  == restaurant.id
+      assert restaurant_return.id == restaurant.id
     end
 
     test "get_restaurant!/1 returns the restaurant with given id" do
@@ -50,9 +50,9 @@ defmodule Meat.RestaurantsTest do
 
     test "create_restaurant/1 with valid data creates a restaurant" do
       assert {:ok, %Restaurant{} = restaurant} = Restaurants.create_restaurant(@valid_attrs)
-      assert restaurant.description ==  "the best burguer"
+      assert restaurant.description == "the best burguer"
       assert restaurant.image.file_name == "image.jpg"
-      assert restaurant.name ==  "Burguer House"
+      assert restaurant.name == "Burguer House"
     end
 
     test "create_restaurant/1 with invalid data returns error changeset" do
