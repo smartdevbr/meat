@@ -25,12 +25,22 @@ defmodule MeatWeb.AuthControllerTest do
 
   describe "login and callback" do
     test "authenticate a user", %{conn: conn} do
-      conn = get(assign(conn, :ueberauth_auth, @valid_auth), Routes.auth_path(conn, :callback, "github"))
+      conn =
+        get(
+          assign(conn, :ueberauth_auth, @valid_auth),
+          Routes.auth_path(conn, :callback, "github")
+        )
+
       assert get_flash(conn, :info) == "Welcome!!! gustavo"
     end
 
     test "failed to authenticate", %{conn: conn} do
-      conn = get(assign(conn, :ueberauth_auth, @invalid_auth), Routes.auth_path(conn, :callback, "github"))
+      conn =
+        get(
+          assign(conn, :ueberauth_auth, @invalid_auth),
+          Routes.auth_path(conn, :callback, "github")
+        )
+
       assert get_flash(conn, :error) == "There was a problem with to login"
     end
   end
