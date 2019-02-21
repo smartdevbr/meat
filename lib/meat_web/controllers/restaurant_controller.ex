@@ -61,7 +61,7 @@ defmodule MeatWeb.RestaurantController do
   def verify_permission(conn, _params) do
     %{params: %{"id" => id}} = conn
 
-    if Restaurants.get_restaurant!(id).usuario_id == conn.assigns.user.id do
+    if Restaurants.get_restaurant!(id).user_id == conn.assigns.user.id do
       conn
     else
       conn

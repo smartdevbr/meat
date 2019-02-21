@@ -27,10 +27,11 @@ defmodule Meat.RestaurantsTest do
     @invalid_attrs %{description: nil, image: nil, name: nil}
 
     def restaurant_fixture(attrs \\ %{}) do
+      
       {:ok, restaurant} =
         attrs
         |> Enum.into(@valid_attrs)
-        |> Restaurants.create_restaurant()
+        |> Restaurants.create_restaurant(Meat.AccountsTest.user_fixture())
 
       restaurant
     end
@@ -49,14 +50,14 @@ defmodule Meat.RestaurantsTest do
     end
 
     test "create_restaurant/1 with valid data creates a restaurant" do
-      assert {:ok, %Restaurant{} = restaurant} = Restaurants.create_restaurant(@valid_attrs)
+      assert {:ok, %Restaurant{} = restaurant} = Restaurants.create_restaurant(@valid_attrs, Meat.AccountsTest.user_fixture())
       assert restaurant.description == "the best burguer"
       assert restaurant.image.file_name == "image.jpg"
       assert restaurant.name == "Burguer House"
     end
 
     test "create_restaurant/1 with invalid data returns error changeset" do
-      assert {:error, %Ecto.Changeset{}} = Restaurants.create_restaurant(@invalid_attrs)
+      assert {:error, %Ecto.Changeset{}} = Restaurants.create_restaurant(@invalid_attrs, Meat.AccountsTest.user_fixture())
     end
 
     test "update_restaurant/2 with valid data updates the restaurant" do
