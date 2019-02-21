@@ -20,7 +20,7 @@ defmodule Meat.MixProject do
   def application do
     [
       mod: {Meat.Application, []},
-      extra_applications: [:logger, :runtime_tools, :arc_ecto]
+      extra_applications: [:logger, :runtime_tools, :arc_ecto, :ueberauth_github]
     ]
   end
 
@@ -44,7 +44,9 @@ defmodule Meat.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:arc, "~> 0.11.0"},
-      {:arc_ecto, "~> 0.11.1"}
+      {:arc_ecto, "~> 0.11.1"},
+      {:ueberauth_github, "~> 0.7"},
+      {:poison, "~> 3.1"}
     ]
   end
 
