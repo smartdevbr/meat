@@ -20,6 +20,14 @@ defmodule MeatWeb.Router do
     # get "/", PageController, :index
   end
 
+  scope "/auth", MeatWeb do
+    pipe_through :browser
+
+    get "/:provider", AuthController, :request
+    get "/:provider/callback", AuthController, :callback
+    get "/:provider/logout", AuthController, :logout
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", MeatWeb do
   #   pipe_through :api
