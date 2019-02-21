@@ -25,6 +25,15 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :ueberauth, Ueberauth.Strategy.Github.OAuth,
+  client_id: "db4d8aadb5e6dd96c32d",
+  client_secret: "9ce7dcbb6b7173569890b1ae11dd1a74da67c2df"
+
+config :ueberauth, Ueberauth,
+  providers: [
+    github: {Ueberauth.Strategy.Github, [default_scope: "user,public_repo,notifications"]}
+  ]
+
 config :arc, storage: Arc.Storage.Local
 
 # Import environment specific config. This must remain at the bottom
