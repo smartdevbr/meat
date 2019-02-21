@@ -7,6 +7,7 @@ defmodule MeatWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug MeatWeb.Plug.SetUser
   end
 
   pipeline :api do
@@ -18,7 +19,6 @@ defmodule MeatWeb.Router do
 
     resources "/users", UserController
     resources "/", RestaurantController
-    # get "/", PageController, :index
   end
 
   scope "/auth", MeatWeb do
