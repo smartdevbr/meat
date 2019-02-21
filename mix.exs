@@ -45,7 +45,8 @@ defmodule Meat.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:arc, "~> 0.11.0"},
       {:arc_ecto, "~> 0.11.1"},
-      {:ueberauth_github, "~> 0.7"}
+      {:ueberauth_github, "~> 0.7"},
+      {:poison, "~> 3.1"}
     ]
   end
 

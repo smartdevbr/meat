@@ -26,8 +26,13 @@ config :logger, :console,
 config :phoenix, :json_library, Jason
 
 config :ueberauth, Ueberauth.Strategy.Github.OAuth,
-  client_id: "9924b71e991b23ebb4bc",
-  client_secret: "a88afab5fc905e40de0ceba6b222288e30fc42ac"
+  client_id: "db4d8aadb5e6dd96c32d",
+  client_secret: "9ce7dcbb6b7173569890b1ae11dd1a74da67c2df"
+
+config :ueberauth, Ueberauth,
+  providers: [
+    github: {Ueberauth.Strategy.Github, [default_scope: "user,public_repo,notifications"]}
+  ]
 
 config :arc, storage: Arc.Storage.Local
 
