@@ -8,6 +8,7 @@ defmodule Meat.Accounts.User do
     field :name, :string
     field :provider, :string
     field :token, :string
+    has_many :restaurants, Meat.Restaurants.Restaurant
 
     timestamps()
   end

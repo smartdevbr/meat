@@ -9,6 +9,7 @@ defmodule Meat.Restaurants.Restaurant do
     field :description, :string
     field :image, Meat.Restaurants.Image.Type
     field :name, :string
+    belongs_to :user, Meat.Accounts.User
 
     timestamps()
   end
