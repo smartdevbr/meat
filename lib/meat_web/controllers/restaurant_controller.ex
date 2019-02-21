@@ -15,8 +15,6 @@ defmodule MeatWeb.RestaurantController do
   def create(conn, %{"restaurant" => restaurant_param}) do
     case Restaurants.create_restaurant(restaurant_param, conn.assigns.user) do
       {:ok, restaurant} ->
-        IO.inspect(restaurant)
-
         conn
         |> put_flash(:info, "Restaurant has created")
         |> redirect(to: Routes.restaurant_path(conn, :show, restaurant))
