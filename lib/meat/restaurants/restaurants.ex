@@ -18,7 +18,7 @@ defmodule Meat.Restaurants do
 
   """
   def list_restaurants do
-    Repo.all(Restaurant)
+    Repo.all(Restaurant) |> Repo.preload(:user)
   end
 
   @doc """
@@ -49,8 +49,8 @@ defmodule Meat.Restaurants do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_restaurant(attrs \\ %{}) do
-    %Restaurant{}
+  def create_restaurant(attrs \\ %{}, user) do
+    Ecto.build_assoc(user, :restaurants)
     |> Restaurant.changeset(attrs)
     |> Repo.insert()
   end

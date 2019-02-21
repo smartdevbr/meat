@@ -23,7 +23,7 @@ defmodule MeatWeb.RestaurantControllerTest do
   @invalid_attrs %{description: nil, image: nil, name: nil}
 
   def fixture(:restaurant) do
-    {:ok, restaurant} = Restaurants.create_restaurant(@create_attrs)
+    {:ok, restaurant} = Restaurants.create_restaurant(@create_attrs, Meat.AccountsTest.user_fixture())
     restaurant
   end
 
