@@ -7,7 +7,6 @@ defmodule MeatWeb.RestaurantController do
   plug MeatWeb.Plug.RequireAuth when action in [:create, :update, :edit, :delete, :new]
   plug :verify_permission when action in [:update, :edit, :delete]
 
-
   def index(conn, _), do: render(conn, "index.html", restaurants: Restaurants.list_restaurants())
 
   def new(conn, _),
@@ -16,7 +15,8 @@ defmodule MeatWeb.RestaurantController do
   def create(conn, %{"restaurant" => restaurant_param}) do
     case Restaurants.create_restaurant(restaurant_param, conn.assigns.user) do
       {:ok, restaurant} ->
-        IO.inspect restaurant
+        IO.inspect(restaurant)
+
         conn
         |> put_flash(:info, "Restaurant has created")
         |> redirect(to: Routes.restaurant_path(conn, :show, restaurant))

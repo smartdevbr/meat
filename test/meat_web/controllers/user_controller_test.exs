@@ -3,8 +3,18 @@ defmodule MeatWeb.UserControllerTest do
 
   alias Meat.Accounts
 
-  @create_attrs %{email: "some email", name: "some name", provider: "some provider", token: "some token"}
-  @update_attrs %{email: "some updated email", name: "some updated name", provider: "some updated provider", token: "some updated token"}
+  @create_attrs %{
+    email: "some email",
+    name: "some name",
+    provider: "some provider",
+    token: "some token"
+  }
+  @update_attrs %{
+    email: "some updated email",
+    name: "some updated name",
+    provider: "some updated provider",
+    token: "some updated token"
+  }
   @invalid_attrs %{email: nil, name: nil, provider: nil, token: nil}
 
   def fixture(:user) do
@@ -75,6 +85,7 @@ defmodule MeatWeb.UserControllerTest do
     test "deletes chosen user", %{conn: conn, user: user} do
       conn = delete(conn, Routes.user_path(conn, :delete, user))
       assert redirected_to(conn) == Routes.user_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.user_path(conn, :show, user))
       end

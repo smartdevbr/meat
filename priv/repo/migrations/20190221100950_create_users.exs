@@ -10,6 +10,5 @@ defmodule Meat.Repo.Migrations.CreateUsers do
 
       timestamps()
     end
-
   end
 end
