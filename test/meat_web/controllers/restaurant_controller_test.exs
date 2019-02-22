@@ -24,14 +24,15 @@ defmodule MeatWeb.RestaurantControllerTest do
 
   setup %{conn: conn} do
     user = Meat.AccountsTest.user_fixture()
+
+    
     conn = conn
     |> Plug.Test.init_test_session(user_id: user.id)
-    {:ok, conn: conn}
+    {:ok, conn: conn, restaurant: fixture(:restaurant, user)}
   end
 
-  def fixture(:restaurant) do
-    {:ok, restaurant} =
-      Restaurants.create_restaurant(@create_attrs, Meat.AccountsTest.user_fixture())
+  def fixture(:restaurant, user) do
+    {:ok, restaurant} = Restaurants.create_restaurant(@create_attrs, user)
     restaurant
   end
 
@@ -66,50 +67,48 @@ defmodule MeatWeb.RestaurantControllerTest do
   end
 
   describe "edit restaurant" do
-    test "renders form for editing chosen restaurant", %{conn: conn} do
-      {:ok, user}  = Meat.Accounts.get_user!(1)
-      restaurant = Restaurants.create_restaurant(@create_attrs, user)
+    test "renders form for editing chosen restaurant", %{conn: conn, restaurant: restaurant} do
       conn = get(conn, Routes.restaurant_path(conn, :edit, restaurant))
       assert html_response(conn, 200) =~ "Update Restaurant"
     end
   end
 
-  # describe "update restaurant" do
-  #   setup [:create_restaurant]
+  describe "update restaurant" do
+    # setup [:create_restaurant]
 
-  #   test "redirects when data is valid", %{conn: conn, restaurant: restaurant} do
-  #     conn =
-  #       put(conn, Routes.restaurant_path(conn, :update, restaurant), restaurant: @update_attrs)
+    test "redirects when data is valid", %{conn: conn, restaurant: restaurant} do
+      conn =
+        put(conn, Routes.restaurant_path(conn, :update, restaurant), restaurant: @update_attrs)
 
-  #     assert redirected_to(conn) == Routes.restaurant_path(conn, :show, restaurant)
+      assert redirected_to(conn) == Routes.restaurant_path(conn, :show, restaurant)
 
-  #     conn = get(conn, Routes.restaurant_path(conn, :show, restaurant))
-  #     assert html_response(conn, 200) =~ "Burguer House updated"
-  #   end
+      conn = get(conn, Routes.restaurant_path(conn, :show, restaurant))
+      assert html_response(conn, 200) =~ "Burguer House updated"
+    end
 
-  #   test "renders errors when data is invalid", %{conn: conn, restaurant: restaurant} do
-  #     conn =
-  #       put(conn, Routes.restaurant_path(conn, :update, restaurant), restaurant: @invalid_attrs)
+    test "renders errors when data is invalid", %{conn: conn, restaurant: restaurant} do
+      conn =
+        put(conn, Routes.restaurant_path(conn, :update, restaurant), restaurant: @invalid_attrs)
 
-  #     assert html_response(conn, 200) =~ "Update Restaurant"
-  #   end
-  # end
-
-  # describe "delete restaurant" do
-  #   setup [:create_restaurant]
-
-  #   test "deletes chosen restaurant", %{conn: conn, restaurant: restaurant} do
-  #     conn = delete(conn, Routes.restaurant_path(conn, :delete, restaurant))
-  #     assert redirected_to(conn) == Routes.restaurant_path(conn, :index)
-
-  #     assert_error_sent 404, fn ->
-  #       get(conn, Routes.restaurant_path(conn, :show, restaurant))
-  #     end
-  #   end
-  # end
-
-  defp create_restaurant(_) do
-    restaurant = fixture(:restaurant)
-    {:ok, restaurant: restaurant}
+      assert html_response(conn, 200) =~ "Update Restaurant"
+    end
   end
+
+  describe "delete restaurant" do
+    # setup [:create_restaurant]
+
+    test "deletes chosen restaurant", %{conn: conn, restaurant: restaurant} do
+      conn = delete(conn, Routes.restaurant_path(conn, :delete, restaurant))
+      assert redirected_to(conn) == Routes.restaurant_path(conn, :index)
+
+      assert_error_sent 404, fn ->
+        get(conn, Routes.restaurant_path(conn, :show, restaurant))
+      end
+    end
+  end
+
+  # defp create_restaurant(_, _) do
+  #   restaurant = fixture(:restaurant, )
+  #   {:ok, restaurant: restaurant}
+  # end
 end
