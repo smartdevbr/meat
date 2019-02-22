@@ -103,5 +103,4 @@ defmodule Meat.Accounts do
   end
 
   def find_by_email(email), do: Repo.get_by(User, email: email)
-
 end

@@ -22,8 +22,16 @@ defmodule MeatWeb.RestaurantControllerTest do
   }
   @invalid_attrs %{description: nil, image: nil, name: nil}
 
-  def fixture(:restaurant) do
-    {:ok, restaurant} = Restaurants.create_restaurant(@create_attrs, Meat.AccountsTest.user_fixture())
+  setup %{conn: conn} do
+    user = Meat.AccountsTest.user_fixture()
+
+    conn = conn
+    |> Plug.Test.init_test_session(user_id: user.id)
+    {:ok, conn: conn, restaurant: fixture(:restaurant, user)}
+  end
+
+  def fixture(:restaurant, user) do
+    {:ok, restaurant} = Restaurants.create_restaurant(@create_attrs, user)
     restaurant
   end
 
@@ -58,8 +66,6 @@ defmodule MeatWeb.RestaurantControllerTest do
   end
 
   describe "edit restaurant" do
-    setup [:create_restaurant]
-
     test "renders form for editing chosen restaurant", %{conn: conn, restaurant: restaurant} do
       conn = get(conn, Routes.restaurant_path(conn, :edit, restaurant))
       assert html_response(conn, 200) =~ "Update Restaurant"
@@ -67,7 +73,7 @@ defmodule MeatWeb.RestaurantControllerTest do
   end
 
   describe "update restaurant" do
-    setup [:create_restaurant]
+    # setup [:create_restaurant]
 
     test "redirects when data is valid", %{conn: conn, restaurant: restaurant} do
       conn =
@@ -88,7 +94,7 @@ defmodule MeatWeb.RestaurantControllerTest do
   end
 
   describe "delete restaurant" do
-    setup [:create_restaurant]
+    # setup [:create_restaurant]
 
     test "deletes chosen restaurant", %{conn: conn, restaurant: restaurant} do
       conn = delete(conn, Routes.restaurant_path(conn, :delete, restaurant))
@@ -98,10 +104,18 @@ defmodule MeatWeb.RestaurantControllerTest do
         get(conn, Routes.restaurant_path(conn, :show, restaurant))
       end
     end
+
+    test "deles invalid restaurant", %{conn: conn} do
+      {:ok, restaurant} = Restaurants.create_restaurant(@create_attrs, Meat.AccountsTest.user_fixture())
+      conn = delete(conn, Routes.restaurant_path(conn, :delete, restaurant))
+      assert redirected_to(conn) == Routes.restaurant_path(conn, :index)
+
+      assert get_flash(conn, :error) == "You are not the owner!"
+    end
   end
 
-  defp create_restaurant(_) do
-    restaurant = fixture(:restaurant)
-    {:ok, restaurant: restaurant}
-  end
+  # defp create_restaurant(_, _) do
+  #   restaurant = fixture(:restaurant, )
+  #   {:ok, restaurant: restaurant}
+  # end
 end

@@ -1,12 +1,16 @@
 defmodule MeatWeb.AuthController do
-    use MeatWeb, :controller
-    alias Meat.Accounts
-    plug Ueberauth
+  use MeatWeb, :controller
+  alias Meat.Accounts
+  plug Ueberauth
 
   def callback(%{assigns: %{ueberauth_auth: auth}} = conn, %{"provider" => provider}) do
-    user = %{ name: auth.info.name, token: auth.credentials.token,
-    email: auth.info.email, provider: provider }
-    
+    user = %{
+      name: auth.info.name,
+      token: auth.credentials.token,
+      email: auth.info.email,
+      provider: provider
+    }
+
     login(conn, user)
   end
 
@@ -17,6 +21,7 @@ defmodule MeatWeb.AuthController do
         |> put_flash(:info, "Welcome!!! #{user.name}")
         |> put_session(:user_id, user.id)
         |> redirect(to: Routes.restaurant_path(conn, :index))
+
       {:error, _reason} ->
         conn
         |> put_flash(:error, "There was a problem with to login")
