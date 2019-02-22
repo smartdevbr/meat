@@ -25,7 +25,6 @@ defmodule MeatWeb.RestaurantControllerTest do
   setup %{conn: conn} do
     user = Meat.AccountsTest.user_fixture()
 
-    
     conn = conn
     |> Plug.Test.init_test_session(user_id: user.id)
     {:ok, conn: conn, restaurant: fixture(:restaurant, user)}
@@ -104,6 +103,14 @@ defmodule MeatWeb.RestaurantControllerTest do
       assert_error_sent 404, fn ->
         get(conn, Routes.restaurant_path(conn, :show, restaurant))
       end
+    end
+
+    test "deles invalid restaurant", %{conn: conn} do
+      {:ok, restaurant} = Restaurants.create_restaurant(@create_attrs, Meat.AccountsTest.user_fixture())
+      conn = delete(conn, Routes.restaurant_path(conn, :delete, restaurant))
+      assert redirected_to(conn) == Routes.restaurant_path(conn, :index)
+
+      assert get_flash(conn, :error) == "You are not the owner!"
     end
   end
 
